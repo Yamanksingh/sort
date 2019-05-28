@@ -1,0 +1,33 @@
+{
+  "name": "htmlpdfconversion",
+  "description": "This Package is being used for HTML-PDF Conversion.",
+  "version": "1.0.9",
+  "main": "app.js",
+  "dependencies": {
+    "array-unique": "^0.3.2",
+    "bluebird": "^3.5.4",
+    "express": "^4.16.4",
+    "html-pdf": "^2.2.0",
+    "jspath": "^0.4.0",
+    "logger": "0.0.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
+    "mongodb": "^3.2.3",
+    "request": "^2.88.0",
+    "underscore": "^1.9.1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "html",
+    "pdf",
+    "htmlpdfconverter",
+    "convert html pdf",
+    "convert html to pdf online",
+    "convert html pdf node",
+    "convert html pdf npm",
+    "html pdf conversion",
+    "Phantom Js"
+  ],
+  "author": "Yamank Singh",
+  "email": "singhyamank@gmail.com"
+}
