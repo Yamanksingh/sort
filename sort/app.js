@@ -25,7 +25,7 @@ var url = "mongodb://localhost:27017/mydb";
 /** Sample Body Request
  * {
 	"data":{
-		"name" : "YS CORP",
+        "name" : "YS CORP",
 		"address" : "delhi"
 	}
 }
