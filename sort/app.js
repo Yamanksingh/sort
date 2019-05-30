@@ -8,8 +8,8 @@ var pdf = require('html-pdf');
 var bodyParser = require("body-parser");
 var _ = require('underscore');
 var moment = require('moment');
-var mongo = require('mongodb');
-var logger = require('logger').createLogger('development.log');
+//var mongo = require('mongodb');
+//var logger = require('logger').createLogger('development.log');
 var unique = require('array-unique');
 
 
@@ -24563,35 +24563,35 @@ app.post('/jsonArraySort',function(req, res){
       res.send(200, jsonObj);
 });
 
-exports.convertPdf = function (req, resp) {
-    fs.writeFileSync('app.html', req.html);
-    fs.readFile('app.html', 'utf8', function (err, contents) {
-        fs.writeFileSync('File.html', contents);
-        var html = fs.readFileSync('File.html', 'utf8');
-        var options = {
-            "format": 'A4',
-            "border": {
-                "top": "40px",            // default is 0, units: mm, cm, in, px
-                "right": "30px",
-                "bottom": "40px",
-                "left": "30px"
-            },
-            "header": {
-                "height": "45mm"
-            },
-            "footer": {
-                "height": "20px",
-                "contents": {
-                    default: '<span style="color: #444;">{{page}}</span>-<span>{{pages}}</span>', // fallback value  
-                }
-            }
-        };
-        pdf.create(html, options).toFile('sample.pdf', function (err, res) {
-            console.log("Success in Converting the File" + res);
-            if (err) return console.log(err);
-        });
-    })
-}
+// exports.convertPdf = function (req, resp) {
+//     fs.writeFileSync('app.html', req.html);
+//     fs.readFile('app.html', 'utf8', function (err, contents) {
+//         fs.writeFileSync('File.html', contents);
+//         var html = fs.readFileSync('File.html', 'utf8');
+//         var options = {
+//             "format": 'A4',
+//             "border": {
+//                 "top": "40px",            // default is 0, units: mm, cm, in, px
+//                 "right": "30px",
+//                 "bottom": "40px",
+//                 "left": "30px"
+//             },
+//             "header": {
+//                 "height": "45mm"
+//             },
+//             "footer": {
+//                 "height": "20px",
+//                 "contents": {
+//                     default: '<span style="color: #444;">{{page}}</span>-<span>{{pages}}</span>', // fallback value  
+//                 }
+//             }
+//         };
+//         pdf.create(html, options).toFile('sample.pdf', function (err, res) {
+//             console.log("Success in Converting the File" + res);
+//             if (err) return console.log(err);
+//         });
+//     })
+// }
 
 app.listen(8080, function () {
     console.log("listening on 8080");
