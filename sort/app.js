@@ -24387,21 +24387,21 @@ res.status(200).send({
 })
 // Sorted JSON Based on the 
 
-app.get('/getSort', function(req,res){
+// app.get('/getSort', function(req,res){
       
-    getSort()
-    .then(function(result){
-       res.send(200,{
-           "items" : result
-       });
-    })
-    .catch(function(error){
-       console.log("Inside the Sorted Array Function Error :" + JSON.stringify(error));
-       res.send(500,{
-           "error" : error
-       })
-    })
-})
+//     getSort()
+//     .then(function(result){
+//        res.send(200,{
+//            "items" : result
+//        });
+//     })
+//     .catch(function(error){
+//        console.log("Inside the Sorted Array Function Error :" + JSON.stringify(error));
+//        res.send(500,{
+//            "error" : error
+//        })
+//     })
+// })
 
 // function getSort(){
 //     return new Promise((resolve,reject) => {
@@ -24592,7 +24592,7 @@ app.post('/jsonArraySort',function(req, res){
 //         });
 //     })
 // }
-
-app.listen(8080, function () {
+var port = process.env.PORT || 8080;
+app.listen(port, function () {
     console.log("listening on 8080");
 });
