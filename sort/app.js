@@ -17,10 +17,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/app.html');
+})
 
-
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/mydb";
+//var MongoClient = require('mongodb').MongoClient;
+//var url = "mongodb://localhost:27017/mydb";
 
 /** Sample Body Request
  * {
@@ -30,93 +32,93 @@ var url = "mongodb://localhost:27017/mydb";
 	}
 }
  */
-app.post('/insertData', function(req,res){
-    var myObj = req.body.data;
-    insertData(myObj)
-      .then(function(result){
-         // console.log("inside the result Function" + JSON.stringify(result));
-         logger.info('loading an array in the Insert Data', [1,2,3], 'now!');
-          res.send(200,{
-              "insertedIds" : result.insertedIds,
-              "insertedcount" : result.insertedCount,
-              "message" : "Successfully Data Inserted"
-          });
-      })
-      .catch(function(error){
-        logger.info('loading an array', [1,2,3], 'now!');
-          console.log("Inside the Error of insert data" + JSON.stringify(error));
-          res.status(500).send({
-              "message" : "Error in submitting the record"
-          })
-      })
-})
+// app.post('/insertData', function(req,res){
+//     var myObj = req.body.data;
+//     insertData(myObj)
+//       .then(function(result){
+//          // console.log("inside the result Function" + JSON.stringify(result));
+//          logger.info('loading an array in the Insert Data', [1,2,3], 'now!');
+//           res.send(200,{
+//               "insertedIds" : result.insertedIds,
+//               "insertedcount" : result.insertedCount,
+//               "message" : "Successfully Data Inserted"
+//           });
+//       })
+//       .catch(function(error){
+//         logger.info('loading an array', [1,2,3], 'now!');
+//           console.log("Inside the Error of insert data" + JSON.stringify(error));
+//           res.status(500).send({
+//               "message" : "Error in submitting the record"
+//           })
+//       })
+// })
 
-function insertData(myObj){
-  //console.log("Inside the Insert Data Function" + JSON.stringify(myObj));
-   return new Promise((resolve, reject) => {
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("Mydb");
-        dbo.collection("customers").insertOne(myObj, function(err, res) {
-          if (err){
-              return reject(err);
-          };
-          console.log("document inserted" +  JSON.stringify(res));
-          db.close();
-          return resolve(res);
-        });
-      }); 
-   })
-}
+// function insertData(myObj){
+//   //console.log("Inside the Insert Data Function" + JSON.stringify(myObj));
+//    return new Promise((resolve, reject) => {
+//     MongoClient.connect(url, function(err, db) {
+//         if (err) throw err;
+//         var dbo = db.db("Mydb");
+//         dbo.collection("customers").insertOne(myObj, function(err, res) {
+//           if (err){
+//               return reject(err);
+//           };
+//           console.log("document inserted" +  JSON.stringify(res));
+//           db.close();
+//           return resolve(res);
+//         });
+//       }); 
+//    })
+// }
 
-app.get('/getData',function(req,res){
-    getData()
-      .then(function(result){
-          var finalResult = {
-              "name" : [],
-              "Address" : []
-          };
-          var final = {};
-          //console.log("Getdata Response :" + JSON.stringify(result));
-          logger.info("Inside the result of Get Data " + JSON.stringify(result));
-          logger.warn("Large Data Warning");
-          for(var i in result){
-              finalResult.name.push(result[i].name);
-              finalResult.Address.push(result[i].address);
-          }
-          //Removing the Duplicacy based on the Key Value 
-          final = unique(finalResult)
-          res.send(200,{
-              "items" : final
-          });
-      })
-      .catch(function(error){
-          console.log("GetData Error Response :" + JSON.stringify(error));
-          logger.info("Inside the Result of GEt data Error" + JSON.stringify(error));
-          res.send(500,{
-              "error" : error
-          });   
-      })
-})
+// app.get('/getData',function(req,res){
+//     getData()
+//       .then(function(result){
+//           var finalResult = {
+//               "name" : [],
+//               "Address" : []
+//           };
+//           var final = {};
+//           //console.log("Getdata Response :" + JSON.stringify(result));
+//           logger.info("Inside the result of Get Data " + JSON.stringify(result));
+//           logger.warn("Large Data Warning");
+//           for(var i in result){
+//               finalResult.name.push(result[i].name);
+//               finalResult.Address.push(result[i].address);
+//           }
+//           //Removing the Duplicacy based on the Key Value 
+//           final = unique(finalResult)
+//           res.send(200,{
+//               "items" : final
+//           });
+//       })
+//       .catch(function(error){
+//           console.log("GetData Error Response :" + JSON.stringify(error));
+//           logger.info("Inside the Result of GEt data Error" + JSON.stringify(error));
+//           res.send(500,{
+//               "error" : error
+//           });   
+//       })
+// })
 
-function getData(){
+// function getData(){
 
-    return new Promise((resolve,reject) => {
-        MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("Mydb");
-            dbo.collection("customers").find({}).toArray(function(err, result) {
-              if (err){
-                logger.info("error in getData" + JSON.stringify(err));
-                return reject(err);
-              };
-              db.close();
-              return resolve(result);
-            });
-          });
-    })
+//     return new Promise((resolve,reject) => {
+//         MongoClient.connect(url, function(err, db) {
+//             if (err) throw err;
+//             var dbo = db.db("Mydb");
+//             dbo.collection("customers").find({}).toArray(function(err, result) {
+//               if (err){
+//                 logger.info("error in getData" + JSON.stringify(err));
+//                 return reject(err);
+//               };
+//               db.close();
+//               return resolve(result);
+//             });
+//           });
+//     })
 
-}
+// }
 
 //Remove duplicacy in the JSON obj
 app.get('/getDuplicate', function(req,res){
@@ -24401,22 +24403,22 @@ app.get('/getSort', function(req,res){
     })
 })
 
-function getSort(){
-    return new Promise((resolve,reject) => {
-        MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("Mydb");
-            var mysort = { address: 1 };
-            dbo.collection("customers").find().sort(mysort).toArray(function(err, result) {
-              if (err){
-                  return reject(err)
-              };
-              db.close();
-              return resolve(result);
-            });
-          });
-    })
-}
+// function getSort(){
+//     return new Promise((resolve,reject) => {
+//         MongoClient.connect(url, function(err, db) {
+//             if (err) throw err;
+//             var dbo = db.db("Mydb");
+//             var mysort = { address: 1 };
+//             dbo.collection("customers").find().sort(mysort).toArray(function(err, result) {
+//               if (err){
+//                   return reject(err)
+//               };
+//               db.close();
+//               return resolve(result);
+//             });
+//           });
+//     })
+// }
 
 
 /** For getting the Sorted value of date with minimum and maximum value of date

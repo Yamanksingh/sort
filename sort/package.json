@@ -29,5 +29,9 @@
     "Phantom Js"
   ],
   "author": "Yamank Singh",
-  "email": "singhyamank@gmail.com"
+  "email": "singhyamank@gmail.com",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+}
 }
